@@ -15,6 +15,10 @@ export default function List(props) {
                             <span className="task-name">asd</span>
                         </td>
                         <td>
+                            <span className="project-name">Inbox</span>
+                            <span className="project-color"></span>
+                        </td>
+                        <td>
                             <span className="action-button">
                                 ...
                             </span>

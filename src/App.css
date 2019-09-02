@@ -6,7 +6,7 @@
     justify-content: space-between;
     padding: 7px 250px;
     position: fixed;
-    z-index: 10;
+    z-index: 1;
     width: 64%;
 }
 
@@ -238,8 +238,24 @@
 .list-holder .task-name {
     display: block;
     color: #ffffffde;
-    width: 520px;
+    width: 460px;
     cursor: text;
+}
+
+.list-holder .project-name {
+    font-size: 11px;
+    padding: 0 5px;
+    color: rgba(255,255,255,0.6);
+}
+
+.list-holder .project-color {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    margin-top: 4px;
+    vertical-align: baseline;
+    background: #b8b8b8;
 }
 
 .list-holder .action-button {
@@ -248,4 +264,155 @@
     letter-spacing: 1px;
     font-weight: bold;
     cursor: pointer;
+    padding-left: 15px;
+    vertical-align: 40%;
+    opacity: 0;
+}
+
+.list-holder table {
+    border-spacing: 0px;
+}
+
+.list-holder table tr td:last-child {
+    border: none;
+}
+
+.list-holder td {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: 10px 0px;
+}
+
+.list-holder table tr:hover td:last-child span {
+    opacity: 1;
+}
+
+.list-holder table tr td:nth-child(3) {
+    cursor: pointer;
+}
+
+.add-task {
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.add-task .add-icon {
+    color: #de4c4a;
+    display: inline-flex;
+    height: 17px;
+    justify-content: center;
+    align-items: center;
+    margin-right: 13px;
+    transform: translateY(8px);
+    vertical-align: 7px;
+    width: 17px;
+    border-radius: 17px;
+}
+
+.add-task .add-action {
+    font-size: 14px;
+    color: #808080;
+    display: inline-block;
+}
+
+.add-task:hover .add-icon {
+    color: #242424;
+    background: #de4c4a;
+}
+
+.add-task:hover .add-action {
+    color: #de4c4a;
+}
+
+.form {
+    padding: 4px 0;
+    margin-bottom: 9px;
+}
+
+.form .form-input {
+    margin-bottom: 6px;
+}
+
+.form .form-input input{
+    width: 530px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.87);
+    background: #171717;
+    outline: none;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 3px;
+    padding: 10px;
+}
+
+.form .form-action .form-submit {
+    font-weight: bold;
+    font-size: 13px;
+    line-height: 17px;
+    text-decoration: none;
+    padding: 6px 12px 7px 12px;
+    background: #de4c4a;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    color: #fff;
+    margin-right: 5px;
+    cursor: pointer;
+}
+
+.form .form-action .form-cancel {
+    color: #808080;
+    background: none;
+    font-size: 13px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.form .form-action .form-cancel:hover {
+    color: rgba(255,255,255,0.87);
+    text-decoration: underline;
+}
+
+.add-modal {
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.68);
+}
+
+.add-modal .add-modal-form {
+    border: 1px solid #171717;
+    position: relative;
+    background: #1f1f1f;
+    padding: 25px 30px 10px 30px;
+    border-radius: 5px;
+    margin-top: 75px;
+    left: 25%;
+    width: 550px;
+}
+
+.add-modal .add-modal-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.add-modal .add-modal-header span {
+    display: block;
+    color: rgba(255,255,255,0.87);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.add-modal .add-modal-header .close {
+    cursor: pointer;
+}
+
+.add-modal .add-modal-header .close:hover {
+    color: #fff;
 }

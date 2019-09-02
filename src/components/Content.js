@@ -1,5 +1,8 @@
 import * as React from 'react';
-import List from '../components/List';
+import List from './List';
+import AddTask from './AddTask';
+import Form from './Form';
+import AddModal from './AddModal';
 
 export default function Content(props) {
     return (
@@ -18,6 +21,9 @@ export default function Content(props) {
                 </div>
             </div>
             <List />
+            <Form />
+            <AddTask />
+            <AddModal />
         </div>
     );
 };
