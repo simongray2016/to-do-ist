@@ -1,10 +1,11 @@
-<<<<<<< HEAD
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ListResult from './ListResult';
 import { connect } from 'react-redux';
 import * as actions from '../actions/task';
 
-function SearchBar({ project, querySearch }) {
+function SearchBar({ listResult, querySearch }) {
+	const [visible, setVisible] = useState(0);
+
 	const renderResult = list => {
 		return (
 			list.map((task, index) =>
@@ -24,11 +25,13 @@ function SearchBar({ project, querySearch }) {
 			<i className="fa fa-search"></i>
 			<input
 				onChange={e => onChangeQuerySearch(e.target.value)}
+				onFocus={() => setVisible(1)}
+				onBlur={() => setVisible(0)}
 				className="search" type="text" placeholder="Quick Find" />
-			<div className="result" >
+			<div className={!visible ? "result" : "result result-visible"}>
 				<table>
 					<tbody>
-						{renderResult(project.list)}
+						{renderResult(listResult)}
 					</tbody>
 				</table>
 			</div>
@@ -37,23 +40,11 @@ function SearchBar({ project, querySearch }) {
 };
 
 const mapStateToProps = state => ({
-	project: state.task
+	listResult: state.task.listResult
 });
 
-const mapDispatchToProps  = dispatch => ({
-	// querySearch: query => dispatch(actions.querySearch(query))
+const mapDispatchToProps = dispatch => ({
+	querySearch: query => dispatch(actions.querySearch(query))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
-=======
-import React from 'react';
-
-export default function SearchBar() {
-	return (
-		<div className="search-bar"> 
-			<i className="fa fa-search"></i>
-			<input className="search" type="text" placeholder="Quick Find"/>
-		</div>
-	);
-};
->>>>>>> 21a6486be9769b38dd74b7f4d2da28d9f6b03d90

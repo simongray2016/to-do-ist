@@ -5,15 +5,10 @@ export default class Project {
         this.color = '#8b8b8b';
     }
 
-    editName = (newName) => {
-        this.name = newName;
-    }
+    editName = newName => this.name = newName;
 
-    addTask = (task) => {
-        this.list.push(task);
-    }
+    addTask = task => this.list.push(task);
 
-    editColor = (newColor) => {
-        this.color = newColor;
-    }
+    editColor = newColor => this.color = newColor;
+
 }
