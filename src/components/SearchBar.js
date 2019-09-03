@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import ListResult from './ListResult';
 import { connect } from 'react-redux';
@@ -44,3 +45,15 @@ const mapDispatchToProps  = dispatch => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
+=======
+import React from 'react';
+
+export default function SearchBar() {
+	return (
+		<div className="search-bar"> 
+			<i className="fa fa-search"></i>
+			<input className="search" type="text" placeholder="Quick Find"/>
+		</div>
+	);
+};
+>>>>>>> 21a6486be9769b38dd74b7f4d2da28d9f6b03d90

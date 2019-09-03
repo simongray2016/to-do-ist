@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #282828;
   box-sizing: border-box;
+<<<<<<< HEAD
 }
 
 ::-webkit-scrollbar {
@@ -22,6 +23,8 @@ body {
   border-radius: 10px;
   background: #8b8b8b;
   cursor: default;
+=======
+>>>>>>> 21a6486be9769b38dd74b7f4d2da28d9f6b03d90
 }
 
 code {
