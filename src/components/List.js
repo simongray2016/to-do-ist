@@ -5,25 +5,27 @@ export default function List(props) {
         <div className="section-list">
             <div className="list-holder">
                 <table>
-                    <tr>
-                        <td>
-                            <div className="checkbox">
-                                <i class="fa fa-check"></i>
-                            </div>
-                        </td>
-                        <td>
-                            <span className="task-name">asd</span>
-                        </td>
-                        <td>
-                            <span className="project-name">Inbox</span>
-                            <span className="project-color"></span>
-                        </td>
-                        <td>
-                            <span className="action-button">
-                                ...
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div className="checkbox">
+                                    <i className="fa fa-check"></i>
+                                </div>
+                            </td>
+                            <td>
+                                <span className="task-name">asd</span>
+                            </td>
+                            <td>
+                                <span className="project-name">Inbox</span>
+                                <span className="project-color"></span>
+                            </td>
+                            <td>
+                                <span className="action-button">
+                                    ...
                             </span>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>

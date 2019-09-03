@@ -24,6 +24,12 @@
     padding: 0px 10px;
 }
 
+.quick-bar {
+    display: flex;
+    justify-content: space-between;
+    width: 620px;
+}
+
 .search {
     background: none;
     border: none;
@@ -40,13 +46,9 @@
     cursor: text;
     display: flex;
     align-items: center;
-    border-radius: 5px;
+    border-radius: 3px;
     height: 30px;
-    border: 1px solid #808080;
-}
-
-.search-bar:hover {
-    background: #535353;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .search:focus {
@@ -240,6 +242,7 @@
     color: #ffffffde;
     width: 460px;
     cursor: text;
+    font-size: 14px;
 }
 
 .list-holder .project-name {
@@ -415,4 +418,60 @@
 
 .add-modal .add-modal-header .close:hover {
     color: #fff;
+}
+
+.result {
+    position: absolute;
+    top: 93%;
+    width: 534px;
+    max-height: 193px;
+    overflow: auto;
+    background: #282828;
+    border-radius: 3px;
+    box-shadow: 2px 2px 5px 2px #171717;
+    cursor: default;
+}
+
+.result .type {
+    border: 1px solid rgba(255,255,255,0.87);
+    border-radius: 3px;
+    width: 10px;
+    height: 10px;
+    display: block;
+    margin: 0 10px;
+}
+
+.result .name {
+    color: rgba(255,255,255,0.87);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.result table{
+    width: 100%;
+    border-spacing: 0;
+}
+
+.result table tr {
+    cursor: pointer;
+}
+
+.result table tr:hover {
+    background: #535353;
+}
+
+.result table tr td:first-child {
+    width: 40px;
+}
+
+.result table tr td {
+    padding: 5px 0px;
+}
+
+.result table tr td {
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.result table tr:last-child td {
+    border: none;
 }
