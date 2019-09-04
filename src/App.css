@@ -242,7 +242,7 @@
     color: #ffffffde;
     width: 460px;
     cursor: text;
-    font-size: 14px;
+    font-size: 13px;
 }
 
 .list-holder .project-name {
@@ -282,7 +282,7 @@
 
 .list-holder td {
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 10px 0px;
+    padding: 2px 0;
 }
 
 .list-holder table tr:hover td:last-child span {
@@ -542,7 +542,7 @@
 .quick-add .add-tip::after {
     content: "";
     position: absolute;
-    top: -38%;
+    top: -37%;
     left: 44%;
     margin-left: -5px;
     border-width: 5px;
@@ -653,88 +653,6 @@
     border-color:  transparent transparent #ffffffde transparent ;
 }
 
-.list-holder .checkbox {
-    width: 18px;
-    height: 18px;
-    border: 1px solid #808080;
-    border-radius: 50%;
-    margin: 10px 14px 10px 0px;
-    transition: 0.3s;
-    text-align: center;
-    line-height: 100%;
-    cursor: pointer;
-}
-
-.list-holder .checkbox i {
-    color: #de4c4a;
-    font-size: 13px;
-    opacity: 0;
-    transition: 0.3s;
-}
-
-.list-holder .checkbox:hover {
-    background: #282828;
-}
-
-.list-holder .checkbox:hover i {
-    opacity: 1;
-}
-
-.list-holder .task-name {
-    display: block;
-    color: #ffffffde;
-    width: 460px;
-    cursor: text;
-}
-
-.list-holder .project-name {
-    font-size: 11px;
-    padding: 0 5px;
-    color: rgba(255,255,255,0.6);
-}
-
-.list-holder .project-color {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 10px;
-    margin-top: 4px;
-    vertical-align: baseline;
-    background: #b8b8b8;
-}
-
-.list-holder .action-button {
-    color: #ffffffde;
-    line-height: 50%;
-    letter-spacing: 1px;
-    font-weight: bold;
-    cursor: pointer;
-    padding-left: 15px;
-    vertical-align: 40%;
-    opacity: 0;
-}
-
-.list-holder table {
-    border-spacing: 0px;
-}
-
-.list-holder table tr td:last-child {
-    border: none;
-}
-
-.list-holder td {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding: 10px 0px;
-}
-
-.list-holder table tr:hover td:last-child span {
-    opacity: 1;
-}
-
-.list-holder table tr td:nth-child(3) {
-    cursor: pointer;
-}
-
 .add-task {
     padding: 10px 0;
     cursor: pointer;
@@ -822,22 +740,32 @@
     z-index: 9;
     top: 0;
     left: 0;
-    overflow: auto;
+    overflow: hidden;
     width: 100%;
     height: 100%;
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.68);
+
+}
+
+.add-modal .add-modal-background {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.1);
 }
 
 .add-modal .add-modal-form {
     border: 1px solid #171717;
     position: relative;
+    z-index: 10;
     background: #1f1f1f;
     padding: 25px 30px 10px 30px;
     border-radius: 5px;
-    margin-top: 75px;
+    bottom: 650px;
     left: 25%;
     width: 550px;
+}
+
+.add-modal .form-cancel {
+    display: none;
 }
 
 .add-modal .add-modal-header {

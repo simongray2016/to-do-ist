@@ -1,9 +1,10 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import List from './List';
 import AddTask from './AddTask';
 import Form from './Form';
 
-export default function Content(props) {
+function Content(props) {
     return (
         <div className="content">
             <div className="project-header">
@@ -20,8 +21,14 @@ export default function Content(props) {
                 </div>
             </div>
             <List />
-            <Form />
+            { props.isAdd && <Form /> }
             <AddTask />
         </div>
     );
 };
+
+const mapStateToProps = state => ({
+    isAdd: state.taskReducer.isAdd
+})
+
+export default connect(mapStateToProps, null)(Content);

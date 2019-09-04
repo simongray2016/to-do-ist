@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ListResult from './ListResult';
 import { connect } from 'react-redux';
-import * as actions from '../actions/task';
+import * as actions from '../actions/taskActions';
 
 function SearchBar({ listResult, querySearch }) {
 	const [visible, setVisible] = useState(0);
@@ -40,7 +40,7 @@ function SearchBar({ listResult, querySearch }) {
 };
 
 const mapStateToProps = state => ({
-	listResult: state.task.listResult
+	listResult: state.taskReducer.listResult
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -1,33 +1,33 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import ListItem from './ListItem';
 
-export default function List(props) {
+function List(props) {
+    useEffect(() => {
+        console.log('props', props.taskList);
+    })
+
     return (
         <div className="section-list">
             <div className="list-holder">
                 <table>
                     <tbody>
-                        <tr>
-                            <td>
-                                <div className="checkbox">
-                                    <i className="fa fa-check"></i>
-                                </div>
-                            </td>
-                            <td>
-                                <span className="task-name">asd</span>
-                            </td>
-                            <td>
-                                <span className="project-name">Inbox</span>
-                                <span className="project-color"></span>
-                            </td>
-                            <td>
-                                <span className="action-button">
-                                    ...
-                            </span>
-                            </td>
-                        </tr>
+                        {props.taskList.length !== 0 ? props.taskList.map((task, index) => (
+                            <ListItem
+                                name={task.name}
+                                key={index}
+                            />
+                        )) :
+                            <tr></tr>}
                     </tbody>
                 </table>
             </div>
         </div>
     );
 };
+
+const mapStateToProps = state => ({
+    taskList: state.taskReducer.inbox.list
+})
+
+export default connect(mapStateToProps, null)(List);
