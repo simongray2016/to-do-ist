@@ -5,29 +5,35 @@ import inbox from '../model/GetData';
 let initState = {
     inbox,
     listResult: [],
-    isQuickAdd: false,
-    isAdd: false
 }
 
 const taskReducer = (state = initState, action) => {
     let { inbox, listResult } = state;
     switch (action.type) {
         case types.ADD_TASK:
-            let {name} = action;
+            let { name } = action;
             let newTask = new Task(name);
-            inbox.list = [...inbox.list, newTask];
-            console.log('newTask', inbox)
+            inbox.list = inbox.addTask(newTask);
             return { ...state, inbox };
         case types.QUERY_SEARCH:
             let { query } = action;
-            query ? listResult = inbox.list.filter(task => task.name.includes(query)) : listResult = [];
+            query ? listResult = inbox.findTaskName(query) : listResult = [];
             return { ...state, listResult };
-        case types.QUICK_ADD:
-            return {...state, isQuickAdd: true};
-        case types.CANCEL_ADD: 
-            return {...state, isQuickAdd: false, isAdd: false};
-        case types.OPEN_FORM:
-            return {...state, isAdd: true};
+        case types.COMPLETED_TASK:
+            let newList = inbox.completedTask(action.id);
+            inbox.list = newList;
+            return { ...state };
+        case types.EDIT_TASK:
+            let editList = inbox.editTask(action.name, action.id);
+            inbox.list = editList;
+            return { ...state }
+        case types.DELETE_TASK:
+            inbox.list = inbox.deleteTask(action.id);
+            return { ...state }
+        case types.CHANGE_PRIORITY: 
+            console.log('action.index :', action.index);
+            inbox.list = inbox.changePriority(action.id, action.index);
+            return { ...state }
         default:
             return state;
     }

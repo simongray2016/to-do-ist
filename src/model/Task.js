@@ -6,7 +6,7 @@ export default class Task {
         this.name = name;
         this.date = new Date();
         this.isCompleted = false;
-        this.priority = 4
+        this.priority = 4;
     }
 
     editName = (newName) => {

@@ -28,7 +28,7 @@ function Content(props) {
 };
 
 const mapStateToProps = state => ({
-    isAdd: state.taskReducer.isAdd
+    isAdd: state.addReducer.isAdd
 })
 
 export default connect(mapStateToProps, null)(Content);

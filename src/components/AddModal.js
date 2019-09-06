@@ -5,8 +5,10 @@ import Form from '../components/Form'
 
 function AddModal(props) {
     return (
-        <div className="add-modal">
-            <div onClick={() => props.cancelAdd()} className="add-modal-background"></div>
+        <div className={props.isQuickAdd ? "add-modal visible opacity" : "add-modal"}>
+            <div onClick={() => props.cancelAdd()} 
+                className="add-modal-background">
+            </div>
             <div className="add-modal-form">
                 <div className="add-modal-header">
                     <span>Quick Add Task</span>
@@ -20,8 +22,12 @@ function AddModal(props) {
     );
 };
 
+const mapStateToProps = state => ({
+    isQuickAdd: state.addReducer.isQuickAdd
+})
+
 const mapDispatchToProps = dispatch => ({
     cancelAdd: () => dispatch(actions.cancelAdd())
 })
 
-export default connect(null, mapDispatchToProps)(AddModal);
+export default connect(mapStateToProps, mapDispatchToProps)(AddModal);

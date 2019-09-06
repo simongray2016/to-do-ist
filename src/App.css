@@ -75,7 +75,7 @@
 }
 
 .quick-add:hover {
-    background: #535353;
+    background: #363636;
 }
 
 .quick-add .add-tip {
@@ -141,16 +141,16 @@
 }
 
 .filter:hover {
-    background: #535353;
+    background: #363636;
 }
 
 .active {
     font-weight: bold;
-    background: #535353;
+    background: #363636;
 }
 
 .content {
-    height: calc(150vh);
+    min-height: calc(80vh);
     background: #1f1f1f;
     margin: 0 230px;
     margin-left: 480px;
@@ -211,15 +211,45 @@
 }
 
 .list-holder .checkbox {
-    width: 18px;
-    height: 18px;
-    border: 1px solid #808080;
+    display: block;
+    width: 16px;
+    height: 16px;
     border-radius: 50%;
     margin: 10px 14px 10px 0px;
     transition: 0.3s;
     text-align: center;
-    line-height: 100%;
+    line-height: 85%;
     cursor: pointer;
+    position: relative;
+}
+
+.list-holder .color-priority-4 {
+    border: 2px solid #808080;
+}
+
+.list-holder .color-priority-3 {
+    border: 2px solid #4073d6;
+}
+
+.list-holder .color-priority-2 {
+    border: 2px solid #f49c18;
+}
+
+.list-holder .color-priority-1 {
+    border: 2px solid #de4c4a;
+}
+
+
+
+.list-holder .checkbox input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    top: 0%;
+}
+
+.list-holder .checkbox input:checked ~ i {
+    opacity: 1;
 }
 
 .list-holder .checkbox i {
@@ -276,21 +306,27 @@
     border-spacing: 0px;
 }
 
-.list-holder table tr td:last-child {
+.list-holder table tr td:nth-child(4) {
     border: none;
+    position: relative;
 }
 
 .list-holder td {
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid #363636;
     padding: 2px 0;
+    position: relative;
 }
 
-.list-holder table tr:hover td:last-child span {
+.list-holder table tr:hover  td:nth-child(4) span {
     opacity: 1;
 }
 
 .list-holder table tr td:nth-child(3) {
     cursor: pointer;
+}
+
+.list-holder table tr td:last-child .show {
+    opacity: 1;
 }
 
 .add-task {
@@ -385,6 +421,9 @@
     height: 100%;
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.68);
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.5s;
 }
 
 .add-modal .add-modal-form {
@@ -462,7 +501,7 @@
 }
 
 .result table tr:hover {
-    background: #535353;
+    background: #363636;
 }
 
 .result table tr td:first-child {
@@ -518,7 +557,7 @@
 }
 
 .quick-add:hover {
-    background: #535353;
+    background: #363636;
 }
 
 .quick-add .add-tip {
@@ -584,20 +623,12 @@
 }
 
 .filter:hover {
-    background: #535353;
+    background: #363636;
 }
 
 .active {
     font-weight: bold;
     background: #535353;
-}
-
-.content {
-    height: calc(150vh);
-    background: #1f1f1f;
-    margin: 0 230px;
-    margin-left: 480px;
-    padding: 80px 10px 84px 39px;
 }
 
 .project-header {
@@ -750,6 +781,8 @@
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.1);
+    opacity: 0;
+    transition: opcaity 1s;
 }
 
 .add-modal .add-modal-form {
@@ -789,3 +822,123 @@
 .add-modal .add-modal-header .close:hover {
     color: #fff;
 }
+
+.visible {
+    visibility: visible;
+}
+
+.opacity {
+    opacity: 1;
+}
+
+.task-action {
+    background: #1f1f1f;
+    position: absolute;
+    top: 38px;
+    left: -43px;
+    border: 1px solid #171717;
+    border-radius: 4px;
+    box-shadow: 1px 1px 8px 1px #171717;
+    z-index: 9;
+}
+
+.list-holder .task-action table tr:nth-child(odd):hover {
+    background: #363636;
+    cursor: pointer;
+}
+
+.list-holder .task-action table tr td {
+    padding: 5px 10px;
+    display: inline-flex;
+    color: rgba(255,255,255,0.87);
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.list-holder .task-action table tr:last-child td {
+    border: none;
+}
+
+.task-action {
+    padding: 5px 0px;
+}
+
+.task-action table tr td .name-label {
+    width: 135px;
+    font-size: 13px;
+}
+
+.task-action table tr td .icon-label {
+    margin-left: 5px;
+    margin-right: 15px;
+    font-size: 18px;
+}
+
+.task-action .priority {
+    width: 170px;
+    cursor: default;
+}
+
+.task-action .priority span {
+    display: block;
+    font-size: 11px;
+    color: rgba(255,255,255,0.6);
+}
+
+.task-action .priority ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.task-action .priority ul li a {
+    display: block;
+    padding: 0px 5px;
+    border-radius: 3px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.task-action .priority .current {
+    border: 2px solid #535353;
+}
+
+.task-action .priority .priority-1 {
+    color: #de4c4a;
+}
+
+.task-action .priority .priority-2 {
+    color: #f49c18;
+}
+
+.task-action .priority .priority-3 {
+    color: #4073d6;
+}
+
+.task-action .priority .priority-4 {
+    color: rgba(255,255,255,0.87);
+}
+
+.list-holder .action-checkbox {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    top: 30%;
+    left: 0%;
+    width: 30px;
+}
+
+.list-holder table .highlight {
+    background: #363636;
+    border-radius: 3px;
+    width: 100px;
+    position: relative;
+}
+
+.list-holder table .highlight .action-button {
+    opacity: 1;
+}
+
+

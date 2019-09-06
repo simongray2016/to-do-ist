@@ -1,8 +1,8 @@
 const TaskData = [
     'first task',
-    'second task',
-    'go home',
-    'play dota'
+    'new task',
+    'take action',
+    'ez game'
 ]
 
 export default TaskData;

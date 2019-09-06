@@ -1,24 +1,22 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
 function List(props) {
-    useEffect(() => {
-        console.log('props', props.taskList);
-    })
-
     return (
         <div className="section-list">
             <div className="list-holder">
                 <table>
                     <tbody>
                         {props.taskList.length !== 0 ? props.taskList.map((task, index) => (
-                            <ListItem
+                            !task.isCompleted ? <ListItem
                                 name={task.name}
+                                id={task.id}
                                 key={index}
-                            />
-                        )) :
-                            <tr></tr>}
+                                index={index}
+                                priority={task.priority}
+                            /> : <tr key={index}></tr>
+                        )) : <tr></tr>}
                     </tbody>
                 </table>
             </div>
@@ -27,7 +25,7 @@ function List(props) {
 };
 
 const mapStateToProps = state => ({
-    taskList: state.taskReducer.inbox.list
+    taskList: state.taskReducer.inbox.list,
 })
 
 export default connect(mapStateToProps, null)(List);

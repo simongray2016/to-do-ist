@@ -4,7 +4,7 @@ import * as actions from '../actions/taskActions';
 
 function QuickAdd(props) {
     return (
-        <div onClick={() => !props.isAdd && props.quickAdd()} className="quick-add">
+        <div onClick={() => (!props.isAdd && !props.isEdit) && props.quickAdd()} className="quick-add">
             <span className="add-button">
                 <i className="fa fa-plus"></i>
             </span>
@@ -16,7 +16,8 @@ function QuickAdd(props) {
 };
 
 const mapStateToProps = state => ({
-    isAdd: state.taskReducer.isAdd
+    isAdd: state.addReducer.isAdd,
+    isEdit: state.editReducer.isEdit
 })
 
 const mapDispatchToProps = dispatch => ({

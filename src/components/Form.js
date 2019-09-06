@@ -3,7 +3,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 
 function Form(props) {
-    const [task, setTask] = useState({ name: '', error: true });
+    const [task, setTask] = useState({ 
+        name: props.isEdit ? props.name : '', 
+        error: true 
+    });
 
     const onChangeTaskName = value => {
         !value.trim() ? setTask({ name: value, error: true }) :
@@ -11,11 +14,18 @@ function Form(props) {
     }
 
     const checkAddTask = () => {
-        if(!task.error) {
-            props.addTask(task.name);
-            props.cancelAdd();
+        if (!task.error) {
+            if (props.isEdit) {
+                props.editTask(props.id, task.name);
+                props.callCancelEdit();
+            }
+            else {
+                props.addTask(task.name);
+                props.cancelAdd();
+            }
             setTask({ name: '', error: true });
         }
+        props.isEdit && props.callCancelEdit();
     }
 
     const onSubmitTask = e => {
@@ -29,14 +39,15 @@ function Form(props) {
                     onKeyDown={(e) => onSubmitTask(e)}
                     value={task.name}
                     name="name-input"
-                    placeholder="Eg: wellplayed"
+                    placeholder="Eg: do something"
+                    autoFocus
                 />
             </div>
             <div className="form-action">
                 <button onClick={() => checkAddTask()} className="form-submit">
-                    Add Task
+                    {props.isEdit ? 'Save' : 'Add Task'}
                 </button>
-                <button onClick={() => props.cancelAdd()} className="form-cancel">
+                <button onClick={() =>props.isEdit ? props.callCancelEdit() : props.cancelAdd()} className="form-cancel">
                     Cancel
                 </button>
             </div>
@@ -44,9 +55,14 @@ function Form(props) {
     );
 };
 
-const mapDispatchToProps = dispatch => ({
-    addTask: (name) => dispatch(actions.addTask(name)),
-    cancelAdd: () => dispatch(actions.cancelAdd())
+const mapStateToProps = state => ({
+    isEdit: state.editReducer.isEdit
 })
 
-export default connect(null, mapDispatchToProps)(Form);
+const mapDispatchToProps = dispatch => ({
+    addTask: (name) => dispatch(actions.addTask(name)),
+    cancelAdd: () => dispatch(actions.cancelAdd()),
+    editTask: (id, name) => dispatch(actions.editTask(id, name))
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
