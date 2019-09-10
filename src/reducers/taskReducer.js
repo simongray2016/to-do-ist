@@ -4,21 +4,17 @@ import inbox from '../model/GetData';
 
 let initState = {
     inbox,
-    listResult: [],
+    id: null
 }
 
 const taskReducer = (state = initState, action) => {
-    let { inbox, listResult } = state;
+    let { inbox, id } = state;
     switch (action.type) {
         case types.ADD_TASK:
             let { name } = action;
             let newTask = new Task(name);
             inbox.list = inbox.addTask(newTask);
             return { ...state, inbox };
-        case types.QUERY_SEARCH:
-            let { query } = action;
-            query ? listResult = inbox.findTaskName(query) : listResult = [];
-            return { ...state, listResult };
         case types.COMPLETED_TASK:
             let newList = inbox.completedTask(action.id);
             inbox.list = newList;
@@ -30,10 +26,13 @@ const taskReducer = (state = initState, action) => {
         case types.DELETE_TASK:
             inbox.list = inbox.deleteTask(action.id);
             return { ...state }
-        case types.CHANGE_PRIORITY: 
+        case types.CHANGE_PRIORITY:
             console.log('action.index :', action.index);
             inbox.list = inbox.changePriority(action.id, action.index);
             return { ...state }
+        case types.FIND_TASK:
+            id = action.id
+            return { ...state, id }
         default:
             return state;
     }

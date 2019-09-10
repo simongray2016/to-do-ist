@@ -23,3 +23,5 @@ export const CLOSE_TASK_ACTION = "CLOSE_TASK_ACTION";
 export const DELETE_TASK = "DELETE_TASK";
 
 export const CHANGE_PRIORITY = "CHANGE_PRIORITY";
+
+export const FIND_TASK = "FIND_TASK"

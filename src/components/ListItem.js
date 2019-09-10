@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import Form from './Form';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import TaskAction from './TaskAction';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 
 function ListItem(props) {
+    const [openAction, setOpenAction] = useState(false);
+
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        props.findId === props.id && window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth",  });
+    }, [props.findId, props.id])
+
     const onpenEditForm = () => {
         props.onpenEditForm(props.index);
         props.cancelAdd();
@@ -22,11 +31,11 @@ function ListItem(props) {
                 </td>
             </tr>
             :
-            <tr className={props.indexAction === props.index ? "highlight" : undefined}>
+            <tr ref={scrollRef} className={ (openAction && "highlight") || (props.findId === props.id && "found")}>
                 <td>
                     <label className={`checkbox color-priority-${props.priority}`}>
                         <input onClick={() => props.completedTask(props.id)} type="checkbox" />
-                        <i className="fa fa-check"></i>
+                        <i className="fa fa-check align-top"></i>
                     </label>
                 </td>
                 <td>
@@ -37,25 +46,21 @@ function ListItem(props) {
                     <span className="project-color"></span>
                 </td>
                 <td>
-                    <span onClick={() => props.openTaskAction(props.index)} className="action-button">
-                        ...
-                    </span>
+                    <TaskAction
+                        id={props.id}
+                        priority={props.priority}
+                        index={props.index}
+                        openAction={ () => setOpenAction(!openAction)}
+                    />
                 </td>
-                <td>
-                    {(props.indexAction === props.index) &&
-                        <TaskAction
-                            id={props.id}
-                            priority={props.priority}
-                            index={props.index}
-                        />}
-                </td>
-            </tr>
+            </tr >
     );
 };
 
 const mapStateToProps = state => ({
     indexEdit: state.editReducer.index,
-    indexAction: state.actionReducer.index
+    indexAction: state.actionReducer.index,
+    findId: state.taskReducer.id
 })
 
 const mapDispatchToProps = dispatch => ({

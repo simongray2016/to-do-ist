@@ -21,7 +21,10 @@ function Content(props) {
                 </div>
             </div>
             <List />
-            { props.isAdd && <Form /> }
+            { props.isAdd 
+                && <div className="padding-right-5">
+                    <Form />
+                </div> }
             <AddTask />
         </div>
     );

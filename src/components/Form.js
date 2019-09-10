@@ -21,7 +21,6 @@ function Form(props) {
             }
             else {
                 props.addTask(task.name);
-                props.cancelAdd();
             }
             setTask({ name: '', error: true });
         }

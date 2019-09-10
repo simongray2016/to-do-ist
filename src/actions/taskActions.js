@@ -25,3 +25,5 @@ export const closeTaskAction = () => ({type: types.CLOSE_TASK_ACTION})
 export const deleteTask = id => ({type: types.DELETE_TASK, id})
 
 export const changePriority = (id, index) => ({type: types.CHANGE_PRIORITY, id, index})
+
+export const findTask = id => ({type: types.FIND_TASK, id})

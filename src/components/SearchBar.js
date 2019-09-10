@@ -1,50 +1,71 @@
-import React, { useState } from 'react';
-import ListResult from './ListResult';
+import * as React from 'react';
+import Downshift from 'downshift';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 
-function SearchBar({ listResult, querySearch }) {
-	const [visible, setVisible] = useState(0);
+function SearchBar(props) {
+    let { list } = props;
 
-	const renderResult = list => {
-		return (
-			list.map((task, index) =>
-				<ListResult
-					name={task.name}
-					key={index}
-				/>)
-		)
-	}
+    const listFilter = value => {
+        console.log('value :', value);
+        let inputValue = value.trim().toLowerCase();
+        return list.filter(task => inputValue && task.name.toLowerCase().includes(inputValue))
+    }
 
-	const onChangeQuerySearch = (query) => {
-		querySearch(query.trim().toLowerCase());
-	}
-
-	return (
-		<div className="search-bar">
-			<i className="fa fa-search"></i>
-			<input
-				onChange={e => onChangeQuerySearch(e.target.value)}
-				onFocus={() => setVisible(1)}
-				onBlur={() => setVisible(0)}
-				className="search" type="text" placeholder="Quick Find" />
-			<div className={!visible ? "result" : "result result-visible"}>
-				<table>
-					<tbody>
-						{renderResult(listResult)}
-					</tbody>
-				</table>
-			</div>
-		</div>
-	);
-};
+    return (
+        <Downshift
+            onChange={selection => selection && props.findTask(selection.id)}
+            itemToString={task => task ? task.name : ''}
+        >
+            {({
+                getInputProps,
+                getItemProps,
+                getLabelProps,
+                getMenuProps,
+                isOpen,
+                inputValue,
+                highlightedIndex,
+            }) => (
+                    <div>
+                        <label className="search-icon" {...getLabelProps()}>
+                            <i className="fa fa-search"></i>
+                        </label>
+                        <input {...getInputProps()}
+                            className="search"
+                            placeholder="Quick search"
+                        />
+                        <div className="list-result" {...getMenuProps()}>
+                            {isOpen
+                                ? listFilter(inputValue).map((task, index) => (
+                                    <div className="item"
+                                        {...getItemProps({
+                                            key: index,
+                                            index,
+                                            item: task,
+                                            style: {
+                                                background: 
+                                                    highlightedIndex === index ? '#363636' : '#282828',
+                                            },
+                                        })}
+                                    >
+                                        {task.name}
+                                    </div>
+                                ))
+                                : null
+                            }
+                        </div>
+                    </div>
+                )}
+        </Downshift>
+    );
+}
 
 const mapStateToProps = state => ({
-	listResult: state.taskReducer.listResult
-});
+    list: state.taskReducer.inbox.list
+})
 
 const mapDispatchToProps = dispatch => ({
-	querySearch: query => dispatch(actions.querySearch(query))
+    findTask: id => dispatch(actions.findTask(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
