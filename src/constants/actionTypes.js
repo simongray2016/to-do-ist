@@ -4,6 +4,8 @@ export const QUERY_SEARCH = 'QUERY_SEARCH';
 
 export const QUICK_ADD = 'QUICK_ADD';
 
+export const CLOSE_QUICK_ADD = 'CLOSE_QUICK_ADD'
+
 export const CANCEL_ADD = 'CANCEL_ADD';
 
 export const OPEN_FORM = 'OPEN_FORM';
@@ -25,3 +27,7 @@ export const DELETE_TASK = "DELETE_TASK";
 export const CHANGE_PRIORITY = "CHANGE_PRIORITY";
 
 export const FIND_TASK = "FIND_TASK"
+
+export const SET_ID = "SET_ID"
+
+export const CLEAR_ID = "CLEAR_ID"

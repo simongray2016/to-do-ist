@@ -259,10 +259,6 @@
     top: 0%;
 }
 
-.list-holder .checkbox input:checked ~ i {
-    opacity: 1;
-}
-
 .list-holder .checkbox i {
     color: #de4c4a;
     font-size: 13px;
@@ -394,6 +390,11 @@
     padding: 10px;
 }
 
+.form .form-action {
+    display: flex;
+    justify-content: space-between;
+}
+
 .form .form-action .form-submit {
     font-weight: bold;
     font-size: 13px;
@@ -421,6 +422,11 @@
 .form .form-action .form-cancel:hover {
     color: rgba(255,255,255,0.87);
     text-decoration: underline;
+}
+
+.form .relative {
+    top: 8px;
+    left: -69px;
 }
 
 .add-modal {
@@ -698,6 +704,10 @@
     text-decoration: underline;
 }
 
+.form .form-action .action-button-priority {
+    cursor: pointer;
+}
+
 .add-modal {
     position: fixed;
     z-index: 9;
@@ -799,6 +809,7 @@
 .task-action .name-label {
     width: 135px;
     font-size: 13px;
+
 }
 
 .task-action .icon-label {
@@ -807,18 +818,35 @@
     font-size: 18px;
 }
 
-.task-action .priority {
+.priority {
     width: 170px;
     cursor: default;
+    background: #1f1f1f;
 }
 
-.task-action .priority span {
+.form .priority {
+    padding: 5px 10px;
+    margin: 0;
+    border-radius: 0px;
+    border: 1px solid #171717;
+}
+
+.form .priority ul {
+    margin: 0;
+    padding: 5px 0;
+}
+
+.form .priority span {
+
+}
+
+.priority span {
     display: block;
     font-size: 11px;
     color: rgba(255,255,255,0.6);
 }
 
-.task-action .priority ul {
+.priority ul {
     list-style-type: none;
     padding: 0;
     display: flex;
@@ -826,7 +854,7 @@
     margin: 5px 0;
 }
 
-.task-action .priority ul li a {
+.priority ul li a {
     display: block;
     padding: 0px 5px;
     border-radius: 3px;
@@ -834,23 +862,23 @@
     cursor: pointer;
 }
 
-.task-action .priority .current {
+.priority .current {
     border: 2px solid #535353;
 }
 
-.task-action .priority .priority-1 {
+.priority-1 {
     color: #de4c4a;
 }
 
-.task-action .priority .priority-2 {
+.priority-2 {
     color: #f49c18;
 }
 
-.task-action .priority .priority-3 {
+.priority-3 {
     color: #4073d6;
 }
 
-.task-action .priority .priority-4 {
+.priority-4 {
     color: rgba(255,255,255,0.87);
 }
 

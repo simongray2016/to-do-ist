@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Form from './Form';
-import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import TaskAction from './TaskAction';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
@@ -11,12 +10,26 @@ function ListItem(props) {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        props.findId === props.id && window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth",  });
-    }, [props.findId, props.id])
+        if (props.findId === props.id) {
+            window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth", });
+            setTimeout(() => props.clearId(), 2000)
+        }
+        props.added && props.length -1 === props.index && window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth", });
+    }, [props])
 
     const onpenEditForm = () => {
         props.onpenEditForm(props.index);
         props.cancelAdd();
+    }
+
+    const highligt = () => {
+        if (openAction) {
+            return 'highlight'
+        }
+        else if (props.findId === props.id) {
+            return 'found'
+        }
+        else return undefined
     }
 
     return (
@@ -24,14 +37,15 @@ function ListItem(props) {
             <tr>
                 <td colSpan="4">
                     <Form
-                        name={props.name}
                         id={props.id}
-                        callCancelEdit={() => props.cancelEdit()}
+                        name={props.name}
+                        priority={props.priority}
                     />
                 </td>
             </tr>
             :
-            <tr ref={scrollRef} className={ (openAction && "highlight") || (props.findId === props.id && "found")}>
+            <tr ref={scrollRef} className={highligt()}
+            >
                 <td>
                     <label className={`checkbox color-priority-${props.priority}`}>
                         <input onClick={() => props.completedTask(props.id)} type="checkbox" />
@@ -50,7 +64,7 @@ function ListItem(props) {
                         id={props.id}
                         priority={props.priority}
                         index={props.index}
-                        openAction={ () => setOpenAction(!openAction)}
+                        openAction={() => setOpenAction(!openAction)}
                     />
                 </td>
             </tr >
@@ -60,16 +74,16 @@ function ListItem(props) {
 const mapStateToProps = state => ({
     indexEdit: state.editReducer.index,
     indexAction: state.actionReducer.index,
-    findId: state.taskReducer.id
+    findId: state.taskReducer.id,
 })
 
 const mapDispatchToProps = dispatch => ({
     completedTask: id => dispatch(actions.completedTask(id)),
     onpenEditForm: (index) => dispatch(actions.openEditForm(index)),
-    cancelEdit: () => dispatch(actions.cancelEdit()),
     cancelAdd: () => dispatch(actions.cancelAdd()),
     openTaskAction: index => dispatch(actions.openTaskAction(index)),
-    closeTaskAction: () => dispatch(actions.closeTaskAction())
+    closeTaskAction: () => dispatch(actions.closeTaskAction()),
+    clearId: () => dispatch(actions.clearId())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ListItem);

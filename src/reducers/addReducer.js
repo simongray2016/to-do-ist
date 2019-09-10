@@ -8,11 +8,17 @@ let initState = {
 const addReducer = (state = initState, action) => {
     switch (action.type) {
         case types.QUICK_ADD:
-            return { isQuickAdd: true };
+            state.isQuickAdd = true
+            return { ...state }
+        case types.CLOSE_QUICK_ADD:
+            state.isQuickAdd = false
+            return { ...state }
         case types.CANCEL_ADD:
-            return { isQuickAdd: false, isAdd: false };
+            state.isAdd = false
+            return { ...state }
         case types.OPEN_FORM:
-            return { isAdd: true };
+            state.isAdd = true
+            return { ...state }
         default:
             return state;
     }

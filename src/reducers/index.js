@@ -8,7 +8,7 @@ const reducer = combineReducers({
     taskReducer,
     editReducer,
     actionReducer,
-    addReducer
+    addReducer,
 });
 
 export default reducer;

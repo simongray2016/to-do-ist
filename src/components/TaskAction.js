@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Priority from './Priority';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
@@ -22,18 +23,12 @@ class TaskAction extends Component {
 
 	openEditForm = () => {
 		this.props.openEditForm(this.props.index);
+		this.props.cancelAdd();
 		this.toggle()
 	}
 
-	changePriority = (e, index) => {
-		e.preventDefault();
-		this.props.changePriority(this.props.id, index)
-		this.toggle();
-	}
-
 	render() {
-		let { priority } = this.props;
-		let { index, openAction } = this.state;
+		let { openAction } = this.state;
 		return (
 			<Dropdown isOpen={openAction} toggle={() => this.toggle()}>
 				<DropdownToggle
@@ -49,18 +44,11 @@ class TaskAction extends Component {
 						<span><i className="fa fa-pencil icon-label"></i></span>
 						<span className="name-label">Edit task</span>
 					</div>
-					<div className="priority">
-						<span>Priority</span>
-						<ul>
-							{index.map(index => <li key={index}>
-								<a href="/"
-									className={index === priority ? 'current' : undefined}
-									onClick={e => this.changePriority(e, index)}>
-									<i className={`fa fa-flag${index === 4 ? '-o' : ''} priority-${index}`}></i>
-								</a>
-							</li>)}
-						</ul>
-					</div>
+					<Priority 
+						toggle={() => this.toggle()}
+						id={this.props.id}
+						priority={this.props.priority}
+					/>
 					<div
 						onClick={() => this.deleteTask()}
 					>
@@ -76,7 +64,7 @@ class TaskAction extends Component {
 const mapDispatchToProps = dispatch => ({
 	openEditForm: index => dispatch(actions.openEditForm(index)),
 	deleteTask: id => dispatch(actions.deleteTask(id)),
-	changePriority: (id, index) => dispatch(actions.changePriority(id, index))
+	cancelAdd: () =>  dispatch(actions.cancelAdd())
 })
 
 export default connect(null, mapDispatchToProps)(TaskAction);
