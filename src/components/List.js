@@ -11,6 +11,7 @@ function usePrevious(value) {
 }
 
 function List(props) {
+
     const [added, setAdded] = useState(false);
 
     const {length} = props.taskList;
@@ -35,6 +36,7 @@ function List(props) {
                                 id={task.id}
                                 key={index}
                                 index={index}
+                                date={task.date}
                                 priority={task.priority}
                                 length={props.taskList.length}
                                 added={added}

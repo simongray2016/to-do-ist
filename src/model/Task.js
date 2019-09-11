@@ -1,10 +1,10 @@
 import uuidv4 from 'uuid/v4'
 
 export default class Task {
-    constructor(name, priority = 4) {
+    constructor(name,  date, priority = 4) {
         this.id = uuidv4();
         this.name = name;
-        this.date = new Date();
+        this.date = date;
         this.isCompleted = false;
         this.priority = priority;
     }

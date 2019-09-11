@@ -1,34 +1,39 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Priority from './Priority';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
+import moment from 'moment';
+
+import Priority from './Priority';
+import ScheduleAction from './ScheduleAction';
 
 function Form(props) {
     const [task, setTask] = useState({
         name: props.isEdit ? props.name : '',
+        date: props.isEdit ? props.date : null,
         priority: props.isEdit ? props.priority : 4
     });
 
     const [error, setError] = useState(props.isEdit ? false : true)
 
+    const [toggleSchedule, setToggleSchedule] = useState(false);
+
     const [togglePriority, setTogglePriority] = useState(false);
 
-    const scrollForm = useRef(null);
-
     useEffect(() => {
-        props.clear && setTask({priority: 4, name:''});
-    }, [props.clear])
+        props.clear && setTask({ priority: 4, name: '' });
+        toggleSchedule && props.findTask(props.id);
+    }, [props.clear, toggleSchedule])
 
     const toggle = () => setTogglePriority(!togglePriority);
 
     const onChangeTaskName = value => {
-        if(!value.trim()){
-            setTask({...task, name: value});
-            setError(true) ;
-        }   
+        if (!value.trim()) {
+            setTask({ ...task, name: value });
+            setError(true);
+        }
         else {
-            setTask({...task, name: value});
+            setTask({ ...task, name: value });
             setError(false);
         }
     }
@@ -40,11 +45,15 @@ function Form(props) {
                 props.cancelEdit();
             }
             else {
-                props.addTask(task);
+                let newTask = task;
+                if(task.date === null) {
+                    setTask({...task, date: new Date()});
+                    newTask = ({...task, date: new Date()});
+                }
+                props.addTask(newTask);
                 props.closeQuickAdd()
-
             }
-            setTask({ name: '', priority: 4});
+            setTask({ name: '', date: null, priority: 4 });
             setError(true);
         }
         props.isEdit && props.cancelEdit();
@@ -54,8 +63,10 @@ function Form(props) {
         e.key === "Enter" && checkAddTask();
     }
 
+    const viewDate = () => task.date === null ? 'Schedule' : moment(task.date).format("DD MMM");
+
     return (
-        <div ref={scrollForm} className="form">
+        <div className="form">
             <div className="form-input">
                 <input onChange={(e) => onChangeTaskName(e.target.value)}
                     onKeyDown={(e) => onSubmitTask(e)}
@@ -64,6 +75,44 @@ function Form(props) {
                     placeholder="Eg: do something"
                     autoFocus
                 />
+                <Dropdown isOpen={toggleSchedule} toggle={() => setToggleSchedule(!toggleSchedule)}>
+                    <DropdownToggle
+                        tag="span"
+                        data-toggle="dropdown"
+                        aria-expanded={togglePriority}
+                    >
+                        <input
+                            className="schedule-input"
+                            value={viewDate()}
+                            disabled
+                        />
+                    </DropdownToggle>
+                    <DropdownMenu
+                        modifiers={{
+                            setPosition: {
+                                enabled: true,
+                                order: 890,
+                                fn: (data) => {
+                                    return {
+                                        ...data,
+                                        styles: {
+                                            ...data.styles,
+                                            top: 0,
+                                            left: 0,
+                                        },
+                                    };
+                                }
+                            }
+                        }}
+                        className="p-0 rounded-0 m-0"
+                    >
+                        <ScheduleAction
+                            date={task.date === null ? new Date() : task.date}
+                            toggle={() => setToggleSchedule(!toggleSchedule)}
+                            setDay={newDate => setTask({ ...task, date: newDate })}
+                        />
+                    </DropdownMenu>
+                </Dropdown>
             </div>
             <div className="form-action">
                 <div>
@@ -75,7 +124,7 @@ function Form(props) {
                     </button>
                 </div>
                 <div>
-                    <Dropdown isOpen={togglePriority} toggle={() => toggle()}>
+                    <Dropdown isOpen={togglePriority} toggle={() => setTogglePriority(!togglePriority)}>
                         <DropdownToggle
                             tag="span"
                             className="action-button-priority px-1 mr-4"
@@ -83,12 +132,30 @@ function Form(props) {
                             aria-expanded={togglePriority}
                         >
                             <i className={`fa fa-flag${task.priority === 4 ? '-o' : ''} priority-${task.priority}`}></i>
+                            <span className="tip">Priority</span>
                         </DropdownToggle>
-                        <DropdownMenu className="p-0 rounded-0 m-0 relative">
-                            <Priority 
+                        <DropdownMenu
+                            modifiers={{
+                                setPosition: {
+                                    enabled: true,
+                                    order: 890,
+                                    fn: (data) => {
+                                        return {
+                                            ...data,
+                                            styles: {
+                                                ...data.styles,
+                                                top: 4,
+                                                left: -70,
+                                            },
+                                        };
+                                    }
+                                }
+                            }}
+                            className="p-0 rounded-0 m-0" >
+                            <Priority
                                 toggle={() => toggle()}
-                                priority= {task.priority}
-                                setPriority = {number => setTask({...task, priority: number})}
+                                priority={task.priority}
+                                setPriority={number => setTask({ ...task, priority: number })}
                                 id={props.id}
                             />
                         </DropdownMenu>
@@ -109,6 +176,7 @@ const mapDispatchToProps = dispatch => ({
     closeQuickAdd: () => dispatch(actions.closeQuickAdd()),
     editTask: (id, task) => dispatch(actions.editTask(id, task)),
     cancelEdit: () => dispatch(actions.cancelEdit()),
+    findTask: id => dispatch(actions.findTask(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

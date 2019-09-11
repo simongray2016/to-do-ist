@@ -15,7 +15,7 @@ function SearchBar(props) {
     return (
         <Downshift
             onChange={selection => selection && props.findTask(selection.id)}
-            itemToString={task => task ? task.name : ''}
+            itemToString={task => task ? '' : ''}
         >
             {({
                 getInputProps,
@@ -26,7 +26,7 @@ function SearchBar(props) {
                 inputValue,
                 highlightedIndex,
             }) => (
-                    <div>
+                    <div className="search-bar">
                         <label className="search-icon" {...getLabelProps()}>
                             <i className="fa fa-search"></i>
                         </label>
@@ -34,26 +34,27 @@ function SearchBar(props) {
                             className="search"
                             placeholder="Quick search"
                         />
-                        <div className="list-result" {...getMenuProps()}>
-                            {isOpen
-                                ? listFilter(inputValue).map((task, index) => (
+                        {isOpen
+                            ? (listFilter(inputValue).length ? <div className="list-result" {...getMenuProps()}>
+                                {listFilter(inputValue).map((task, index) => (
                                     <div className="item"
                                         {...getItemProps({
                                             key: index,
                                             index,
                                             item: task,
                                             style: {
-                                                background: 
+                                                background:
                                                     highlightedIndex === index ? '#363636' : '#282828',
                                             },
                                         })}
                                     >
                                         {task.name}
                                     </div>
-                                ))
-                                : null
-                            }
-                        </div>
+                                ))}
+                                </div>
+                                : null)
+                            : null
+                        }
                     </div>
                 )}
         </Downshift>

@@ -12,7 +12,7 @@ const taskReducer = (state = initState, action) => {
     switch (action.type) {
         case types.ADD_TASK:
             let { task } = action;
-            let newTask = new Task(task.name, task.priority);
+            let newTask = new Task(task.name, task.date ,task.priority);
             inbox.list = inbox.addTask(newTask);
             return { ...state, inbox };
         case types.COMPLETED_TASK:
@@ -21,14 +21,12 @@ const taskReducer = (state = initState, action) => {
             return { ...state };
         case types.EDIT_TASK:
             let editList = inbox.editTask(action.id, action.task);
-            console.log('editList :', editList);
             inbox.list = editList;
             return { ...state }
         case types.DELETE_TASK:
             inbox.list = inbox.deleteTask(action.id);
             return { ...state }
         case types.CHANGE_PRIORITY:
-            console.log('action.index :', action.index);
             inbox.list = inbox.changePriority(action.id, action.index);
             return { ...state }
         case types.FIND_TASK:

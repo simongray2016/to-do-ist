@@ -40,7 +40,10 @@ class TaskAction extends Component {
 					<i className="fa fa-ellipsis-h"></i>
 				</DropdownToggle>
 				<DropdownMenu className="task-action">
-					<div onClick={() => this.openEditForm()}>
+					<div 
+						className="item"
+						onClick={() => this.openEditForm()}
+					>
 						<span><i className="fa fa-pencil icon-label"></i></span>
 						<span className="name-label">Edit task</span>
 					</div>
@@ -48,8 +51,10 @@ class TaskAction extends Component {
 						toggle={() => this.toggle()}
 						id={this.props.id}
 						priority={this.props.priority}
+						openAction={openAction}
 					/>
 					<div
+						className="item"
 						onClick={() => this.deleteTask()}
 					>
 						<span><i className="fa fa-trash-o icon-label"></i></span>
