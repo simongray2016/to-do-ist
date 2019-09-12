@@ -1,28 +1,59 @@
 import React from 'react';
 import Calendar from 'react-calendar';
+import { connect } from 'react-redux';
+import * as actions from '../actions/taskActions';
+
 
 function ScheduleAction(props) {
 
-    const callSetDay = value => {
-        props.setDay(value);
-        props.toggle();
+    const callSetDate = value => {
+        if (props.openSchedule) {
+            props.setDate(props.id, value);
+            props.toggle();
+        }
+        else {
+            props.setDateForm(value);
+            props.toggle();
+        }
     }
-    
+
+    const setDaysWeek = (days) => {
+        let now = new Date();
+        let newDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + days);
+        if (props.openSchedule) {
+            props.setDate(props.id, newDate);
+            props.toggle();
+        }
+        else {
+            props.setDateForm(newDate);
+            props.toggle();
+        }
+    }
+
     return (
         <div className="task-action">
-            <div className="item">
+            <div
+                onClick={() => callSetDate(new Date())}
+                className="item"
+            >
                 <span className="icon-label">
                     <i className="fa fa-calendar-check-o"></i>
                 </span>
                 <span className="name-label">To day</span>
             </div>
-            <div className="item">
+            <div
+                onClick={() => setDaysWeek(1)}
+                className="item"
+            >
                 <span className="icon-label">
                     <i className="fa fa-sun-o"></i>
                 </span>
                 <span className="name-label">Tomorrow</span>
             </div>
-            <div className="item">
+            <div
+                onClick={() => setDaysWeek(7)}
+                className="item"
+            >
                 <span className="icon-label">
                     <i className="fa fa-calendar-plus-o"></i>
                 </span>
@@ -35,11 +66,15 @@ function ScheduleAction(props) {
                     showNeighboringMonth={false}
                     calendarType="ISO 8601"
                     minDate={new Date()}
-                    onChange={value => callSetDay(value)}
+                    onChange={value => callSetDate(value)}
                 />
             </div>
         </div>
     );
 };
 
-export default ScheduleAction;
+const mapDispatchToProps = dispatch => ({
+    setDate: (id, date) => dispatch(actions.setDate(id, date))
+})
+
+export default connect(null, mapDispatchToProps)(ScheduleAction);

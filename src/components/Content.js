@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import List from './List';
 import AddTask from './AddTask';
 import Form from './Form';
+import ProjectAction from './ProjectAction';
 
 function Content(props) {
     return (
@@ -12,9 +13,7 @@ function Content(props) {
                     {props.name}
                 </span>
                 <div className="project-action">
-                    <span className="action-button">
-                        <i className="fa fa-ellipsis-h"></i>
-                    </span>
+                    <ProjectAction />
                     <span className="action-tip">
                         Project action
                     </span>

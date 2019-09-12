@@ -31,3 +31,11 @@ export const FIND_TASK = "FIND_TASK"
 export const SET_ID = "SET_ID"
 
 export const CLEAR_ID = "CLEAR_ID"
+
+export const SET_DATE = "SET_DATE"
+
+export const SORT_BY_DATE = "SORT_BY_DATE"
+
+export const SORT_BY_NAME = "SORT_BY_NAME"
+
+export const SORT_BY_PRIORITY = "SORT_BY_PRIORITY"

@@ -4,15 +4,16 @@ import inbox from '../model/GetData';
 
 let initState = {
     inbox,
-    id: null
+    id: null,
 }
 
 const taskReducer = (state = initState, action) => {
-    let { inbox, id } = state;
+    let newState = Object.assign({}, state)
+    let { inbox, id } = newState;
     switch (action.type) {
         case types.ADD_TASK:
             let { task } = action;
-            let newTask = new Task(task.name, task.date ,task.priority);
+            let newTask = new Task(task.name, task.date, task.priority);
             inbox.list = inbox.addTask(newTask);
             return { ...state, inbox };
         case types.COMPLETED_TASK:
@@ -35,6 +36,18 @@ const taskReducer = (state = initState, action) => {
         case types.CLEAR_ID:
             id = null;
             return { ...state, id }
+        case types.SET_DATE:
+            inbox.list = inbox.setDate(action.id, action.date);
+            return { ...state, inbox }
+        case types.SORT_BY_DATE:
+            inbox.list = inbox.sortBy(action.value)
+            return { ...state, inbox };
+        case types.SORT_BY_PRIORITY:
+            inbox.list = inbox.sortBy(action.value);
+            return { ...state, inbox };
+        case types.SORT_BY_NAME:
+            inbox.list = inbox.sortBy(action.value);
+            return { ...state, inbox };
         default:
             return state;
     }

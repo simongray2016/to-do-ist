@@ -1,12 +1,8 @@
 export default class Project {
-    constructor(name) {
-        this.name = name
+    constructor() {
         this.list = [];
         this.completedList = []
-        this.color = '#8b8b8b';
     }
-
-    editName = newName => this.name = newName;
 
     addTask = task => {
         this.list.push(task);
@@ -34,5 +30,15 @@ export default class Project {
 
     findTaskName = query => this.list.filter(task => task.name.includes(query))
 
-    editColor = newColor => this.color = newColor;
+    setDate = (id, date) => this.list.map(task => task.id === id? {...task, date} : task);
+
+    sortBy = (value) => {
+        if(value === 'name') {
+            this.list.sort((task1, task2) => task1.name.charCodeAt(0) - task2.name.charCodeAt(0));
+        }
+        else {
+            this.list.sort((task1, task2) => task1[value] - task2[value]);
+        }
+        return [...this.list];
+    };
 }

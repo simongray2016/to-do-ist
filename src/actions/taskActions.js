@@ -33,3 +33,7 @@ export const findTask = id => ({type: types.FIND_TASK, id})
 export const setId = id => ({type: types.SET_ID, id})
 
 export const clearId = () => ({type: types.CLEAR_ID})
+
+export const setDate = (id, date) => ({type: types.SET_DATE, id, date})
+
+export const sortBy = value => ({type: types.SORT_BY_PRIORITY, value})

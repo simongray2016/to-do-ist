@@ -2,23 +2,27 @@ import React, { useState, useRef, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 import moment from 'moment';
+import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 
 import Form from './Form';
 import TaskAction from './TaskAction';
+import ScheduleAction from './ScheduleAction'
 
 function ListItem(props) {
     const [openAction, setOpenAction] = useState(false);
 
+    const [openSchedule, setOpenSchedule] = useState(false);
+
     const scrollRef = useRef(null);
 
+    const {findId, id, clearId} = props;
+
     useEffect(() => {
-        if (props.findId === props.id) {
+        if (findId === id) {
             window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth", });
-            setTimeout(() => props.clearId(), 2000)
+            setTimeout(() => clearId(), 2000)
         }
-        console.log('props.date :', props.date);
-        props.added && props.length -1 === props.index && window.scrollTo({ top: scrollRef.current.offsetTop, behavior: "smooth", });
-    }, [props])
+    }, [findId, id, clearId])
 
     const onpenEditForm = () => {
         props.onpenEditForm(props.index);
@@ -26,7 +30,7 @@ function ListItem(props) {
     }
 
     const highligt = () => {
-        if (openAction) {
+        if (openAction || openSchedule) {
             return 'highlight'
         }
         else if (props.findId === props.id) {
@@ -54,7 +58,6 @@ function ListItem(props) {
     }
 
     const textLine = () => {
-        let style = {}
         let today = moment().format("DD MMM YYYY");
         let date = moment(props.date).format("DD MMM YYYY");
         let differentDays = moment(date).diff(today, 'days');
@@ -97,11 +100,29 @@ function ListItem(props) {
                     <span onClick={() => onpenEditForm()} className="task-name">{props.name}</span>
                 </td>
                 <td>
-                    <span 
-                        className={textLine()}
-                    >
-                        {viewDate()}
-                    </span>
+                    <Dropdown isOpen={openSchedule} toggle={() => setOpenSchedule(!openSchedule)}>
+                        <DropdownToggle
+                            tag="span"
+                            data-toggle="dropdown"
+                            aria-expanded={openSchedule}
+                        >
+                            <span
+                                className={textLine()}
+                            >
+                                {viewDate()}
+                            </span>
+                        </DropdownToggle>
+                        <DropdownMenu
+                            className="p-0 rounded-0 m-0"
+                        >
+                            <ScheduleAction 
+                                id={props.id}
+                                toggle={() => setOpenSchedule(false)}
+                                openSchedule={openSchedule}
+                                date={props.date}
+                            />
+                        </DropdownMenu>
+                    </Dropdown>
                 </td>
                 <td>
                     <TaskAction

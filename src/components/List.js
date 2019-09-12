@@ -1,30 +1,8 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import ListItem from './ListItem';
 
-function usePrevious(value) {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    })
-    return ref.current;
-}
-
 function List(props) {
-
-    const [added, setAdded] = useState(false);
-
-    const {length} = props.taskList;
-
-    const prevLength = usePrevious(length);
-
-    useEffect(() => {
-        if (prevLength < length) {
-            setAdded(true)
-        }
-        else setAdded(false)
-    }, [prevLength, length])
-
     return (
         <div className="section-list">
             <div className="list-holder">
@@ -38,8 +16,6 @@ function List(props) {
                                 index={index}
                                 date={task.date}
                                 priority={task.priority}
-                                length={props.taskList.length}
-                                added={added}
                             />
                         )) : <tr></tr>}
                     </tbody>

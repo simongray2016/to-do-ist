@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
-import moment from 'moment';
 
 import Priority from './Priority';
 import ScheduleAction from './ScheduleAction';
+import moment from 'moment';
 
 function Form(props) {
     const [task, setTask] = useState({
         name: props.isEdit ? props.name : '',
-        date: props.isEdit ? props.date : null,
+        date: props.isEdit ? new Date(props.date) : null,
         priority: props.isEdit ? props.priority : 4
     });
 
@@ -20,10 +20,12 @@ function Form(props) {
 
     const [togglePriority, setTogglePriority] = useState(false);
 
+    const {clear, findTask} = props;
+
     useEffect(() => {
-        props.clear && setTask({ priority: 4, name: '' });
-        toggleSchedule && props.findTask(props.id);
-    }, [props.clear, toggleSchedule])
+        clear && setTask({ priority: 4, name: '' });
+        toggleSchedule && findTask(props.id);
+    }, [toggleSchedule, clear, findTask, props.id])
 
     const toggle = () => setTogglePriority(!togglePriority);
 
@@ -46,9 +48,9 @@ function Form(props) {
             }
             else {
                 let newTask = task;
-                if(task.date === null) {
-                    setTask({...task, date: new Date()});
-                    newTask = ({...task, date: new Date()});
+                if (!task.date) {
+                    setTask({ ...task, date: new Date() });
+                    newTask = ({ ...task, date: new Date() });
                 }
                 props.addTask(newTask);
                 props.closeQuickAdd()
@@ -69,6 +71,7 @@ function Form(props) {
         <div className="form">
             <div className="form-input">
                 <input onChange={(e) => onChangeTaskName(e.target.value)}
+                    type="text"
                     onKeyDown={(e) => onSubmitTask(e)}
                     value={task.name}
                     name="name-input"
@@ -87,29 +90,11 @@ function Form(props) {
                             disabled
                         />
                     </DropdownToggle>
-                    <DropdownMenu
-                        modifiers={{
-                            setPosition: {
-                                enabled: true,
-                                order: 890,
-                                fn: (data) => {
-                                    return {
-                                        ...data,
-                                        styles: {
-                                            ...data.styles,
-                                            top: 0,
-                                            left: 0,
-                                        },
-                                    };
-                                }
-                            }
-                        }}
-                        className="p-0 rounded-0 m-0"
-                    >
+                    <DropdownMenu className="p-0 rounded-0 m-0">
                         <ScheduleAction
                             date={task.date === null ? new Date() : task.date}
-                            toggle={() => setToggleSchedule(!toggleSchedule)}
-                            setDay={newDate => setTask({ ...task, date: newDate })}
+                            toggle={() => setToggleSchedule(false)}
+                            setDateForm={newDate => setTask({ ...task, date: newDate })}
                         />
                     </DropdownMenu>
                 </Dropdown>
