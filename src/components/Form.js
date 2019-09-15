@@ -8,9 +8,13 @@ import ScheduleAction from './ScheduleAction';
 import moment from 'moment';
 
 function Form(props) {
+
+    let now = new Date();
+
     const [task, setTask] = useState({
         name: props.isEdit ? props.name : '',
-        date: props.isEdit ? new Date(props.date) : null,
+        date: props.isEdit ? new Date(props.date) 
+            : (props.weekDay ? new Date(now.getFullYear(), now.getMonth(), now.getDate() + props.weekDay) : null),
         priority: props.isEdit ? props.priority : 4
     });
 
@@ -20,12 +24,11 @@ function Form(props) {
 
     const [togglePriority, setTogglePriority] = useState(false);
 
-    const {clear, findTask} = props;
+    const {clear} = props;
 
     useEffect(() => {
         clear && setTask({ priority: 4, name: '' });
-        toggleSchedule && findTask(props.id);
-    }, [toggleSchedule, clear, findTask, props.id])
+    }, [clear])
 
     const toggle = () => setTogglePriority(!togglePriority);
 
@@ -45,6 +48,7 @@ function Form(props) {
             if (props.isEdit) {
                 props.editTask(props.id, task);
                 props.cancelEdit();
+                props.toggle && props.toggle();
             }
             else {
                 let newTask = task;
@@ -53,7 +57,8 @@ function Form(props) {
                     newTask = ({ ...task, date: new Date() });
                 }
                 props.addTask(newTask);
-                props.closeQuickAdd()
+                props.isQuickAdd && props.added();
+                props.closeQuickAdd();
             }
             setTask({ name: '', date: null, priority: 4 });
             setError(true);
@@ -66,6 +71,11 @@ function Form(props) {
     }
 
     const viewDate = () => task.date === null ? 'Schedule' : moment(task.date).format("DD MMM");
+
+    const cancelAdd = () => {
+        props.isEdit ? props.cancelEdit() : props.cancelAdd();
+        props.toggle && props.toggle();
+    }
 
     return (
         <div className="form">
@@ -104,7 +114,7 @@ function Form(props) {
                     <button onClick={() => checkAddTask()} className="form-submit">
                         {props.isEdit ? 'Save' : 'Add Task'}
                     </button>
-                    <button onClick={() => props.isEdit ? props.cancelEdit() : props.cancelAdd()} className="form-cancel">
+                    <button onClick={() => cancelAdd()} className="form-cancel">
                         Cancel
                     </button>
                 </div>
@@ -153,6 +163,7 @@ function Form(props) {
 
 const mapStateToProps = state => ({
     isEdit: state.editReducer.isEdit,
+    isQuickAdd: state.addReducer.isQuickAdd
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -161,7 +172,8 @@ const mapDispatchToProps = dispatch => ({
     closeQuickAdd: () => dispatch(actions.closeQuickAdd()),
     editTask: (id, task) => dispatch(actions.editTask(id, task)),
     cancelEdit: () => dispatch(actions.cancelEdit()),
-    findTask: id => dispatch(actions.findTask(id))
+    findTask: id => dispatch(actions.findTask(id)),
+    added: () => dispatch(actions.added())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

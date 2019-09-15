@@ -14,7 +14,7 @@ export const openForm = () => ({ type: types.OPEN_FORM });
 
 export const completedTask = id => ({ type: types.COMPLETED_TASK, id });
 
-export const openEditForm = (index) => ({ type: types.ONPEN_EDIT_FORM, index });
+export const openEditForm = id => ({ type: types.ONPEN_EDIT_FORM, id });
 
 export const cancelEdit = () => ({ type: types.CANCEL_EDIT});
 
@@ -37,3 +37,15 @@ export const clearId = () => ({type: types.CLEAR_ID})
 export const setDate = (id, date) => ({type: types.SET_DATE, id, date})
 
 export const sortBy = value => ({type: types.SORT_BY_PRIORITY, value})
+
+export const showCompletedList = () => ({type: types.SHOW_COMPLETED_LIST})
+
+export const hideCompletedList = () => ({type: types.HIDE_COMPLETED_LIST})
+
+export const undoTask = id => ({type: types.UNDO_TASK, id})
+
+export const tabView = number => ({type: types.TAB, number})
+
+export const clearAdded = () => ({type: types.CLEAR_ADDED})
+
+export const added = () => ({type: types.ADDED})

@@ -39,3 +39,19 @@ export const SORT_BY_DATE = "SORT_BY_DATE"
 export const SORT_BY_NAME = "SORT_BY_NAME"
 
 export const SORT_BY_PRIORITY = "SORT_BY_PRIORITY"
+
+export const SHOW_COMPLETED_LIST = "SHOW_COMPLETED_LIST"
+
+export const HIDE_COMPLETED_LIST = "HIDE_COMPLETED_LIST"
+
+export const UNDO_TASK = "UNDO_TASK"
+
+export const LIST_TODAY = "LIST_TODAY"
+
+export const LIST_WEEK = "LIST_WEEK"
+
+export const TAB = "TAB"
+
+export const CLEAR_ADDED = "CLEAR_ADDED"
+
+export const ADDED = "ADDED"

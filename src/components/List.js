@@ -1,10 +1,16 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef } from 'react';
 import ListItem from './ListItem';
 
 function List(props) {
+    const scrollRef = useRef(null);
+
+    useEffect(() => {
+        let offsetTop = scrollRef.current.getBoundingClientRect().top -200;
+        props.showCompletedList && window.scrollTo({top: offsetTop, behavior: 'smooth'});
+    })
+
     return (
-        <div className="section-list">
+        <div ref={scrollRef} className="section-list">
             <div className="list-holder">
                 <table>
                     <tbody>
@@ -16,8 +22,13 @@ function List(props) {
                                 index={index}
                                 date={task.date}
                                 priority={task.priority}
+                                showCompletedList={props.showCompletedList}
+                                toggle={() => props.toggle && props.toggle()}
+                                length={props.taskList.length - 1}
                             />
-                        )) : <tr></tr>}
+                        )) : <tr className="empty-list">
+                                {props.showCompletedList && 'No completed tasks'}
+                            </tr>}
                     </tbody>
                 </table>
             </div>
@@ -25,8 +36,4 @@ function List(props) {
     );
 };
 
-const mapStateToProps = state => ({
-    taskList: state.taskReducer.inbox.list,
-})
-
-export default connect(mapStateToProps, null)(List);
+export default List;

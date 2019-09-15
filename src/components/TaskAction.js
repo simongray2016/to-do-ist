@@ -22,9 +22,9 @@ class TaskAction extends Component {
 	}
 
 	openEditForm = () => {
-		this.props.openEditForm(this.props.index);
+		this.props.openEditForm(this.props.id);
 		this.props.cancelAdd();
-		this.toggle()
+		this.toggle();
 	}
 
 	render() {

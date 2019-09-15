@@ -39,7 +39,7 @@ function ScheduleAction(props) {
                 <span className="icon-label">
                     <i className="fa fa-calendar-check-o"></i>
                 </span>
-                <span className="name-label">To day</span>
+                <span className="name-label">Today</span>
             </div>
             <div
                 onClick={() => setDaysWeek(1)}

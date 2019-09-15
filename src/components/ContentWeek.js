@@ -1,14 +1,16 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import List from './List';
-import AddTask from './AddTask';
-import Form from './Form';
+import DayList from './DayList';
 import ProjectAction from './ProjectAction';
 import Empty from './Empty';
 
-function Content(props) {
+function ContentWeek(props) {
     let { name } = props;
+    const day = [0, 1, 2, 3, 4, 5, 6];
+
+    const [add, setAdd] = useState(null);
+
     return (
         <div className="content">
             <div className="project-header">
@@ -23,29 +25,23 @@ function Content(props) {
                         </span>
                     </div>}
             </div>
-            <List
-                taskList={props.list}
-            />
-            {props.isAdd
-                && <div className="padding-right-5">
-                    <Form />
-                </div>}
-            <AddTask />
-            {props.showCompletedList
-                && <List
-                    taskList={props.completedList}
-                    showCompletedList={props.showCompletedList}
+            {day.map(index => (
+                <DayList
+                    list={props.list}
+                    index={index}
+                    key={index}
+                    add={add}
+                    closeAdd={() => setAdd(null)}
+                    openAdd={index => setAdd(index)}
                 />
-            }
+            ))}
             {props.list.length === 0 && <Empty />}
         </div>
     );
 };
 
 const mapStateToProps = state => ({
-    isAdd: state.addReducer.isAdd,
-    showCompletedList: state.viewCompletedList.show,
-    completedList: state.taskReducer.taskList.completedList,
+    isAdd: state.addReducer.isAdd
 })
 
-export default connect(mapStateToProps, null)(Content);
+export default connect(mapStateToProps, null)(ContentWeek);

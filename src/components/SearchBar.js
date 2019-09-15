@@ -4,12 +4,19 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/taskActions';
 
 function SearchBar(props) {
-    let { list } = props;
+    const list = () => {
+        if(props.tab === 1) {
+            return props.taskList.list
+        }
+        else if(props.tab === 2) {
+            return props.taskList.listToday
+        }
+        else return props.taskList.listWeek
+    }
 
     const listFilter = value => {
-        console.log('value :', value);
         let inputValue = value.trim().toLowerCase();
-        return list.filter(task => inputValue && task.name.toLowerCase().includes(inputValue))
+        return list().filter(task => inputValue && task.name.toLowerCase().includes(inputValue))
     }
 
     return (
@@ -62,7 +69,8 @@ function SearchBar(props) {
 }
 
 const mapStateToProps = state => ({
-    list: state.taskReducer.inbox.list
+    taskList: state.taskReducer.taskList,
+    tab: state.tabView.tab
 })
 
 const mapDispatchToProps = dispatch => ({

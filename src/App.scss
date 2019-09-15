@@ -7,6 +7,15 @@
   }
 }
 
+@keyframes fade {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 .App {
   background: #282828;
   height: 100vh;
@@ -158,6 +167,7 @@
     cursor: pointer;
     &:hover {
       background: #363636;
+      text-decoration: none;
     }
     .filter-icon {
       i {
@@ -169,6 +179,18 @@
     .filter-name {
       color: #ffffffde;
       font-size: 14px;
+    }
+    .number-of-task {
+      color: #7777;
+      font-size: 11px;
+      margin-left: 5px;
+      display: inline-block;
+    }
+  }
+  .filter-active {
+    background: #363636;
+    .filter-name {
+      font-weight: bold;
     }
   }
   .content {
@@ -248,6 +270,7 @@
           &:nth-child(3) {
             cursor: pointer;
             text-align: center;
+            width: 57px;
           }
           &:nth-child(4) {
             border: none;
@@ -259,6 +282,16 @@
             }
           }
         }
+      }
+      .empty-list {
+        opacity: 0;
+        cursor: default;
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 14px;
+        animation: fade 2s ease-in-out;
+      }
+      .form {
+        width: 547px;
       }
       .highlight {
         background: #363636;
@@ -305,7 +338,15 @@
           font-size: 11px;
           opacity: 0;
           transition: 0.3s;
-          transform: translateY(-3px);
+          transform: translateY(-4px);
+        }
+      }
+      .completed-checkbox {
+        border: 2px solid #808080;
+        background: #282828;
+        i {
+          color: #808080;
+          opacity: 1;
         }
       }
       .color-priority-4 {
@@ -326,6 +367,10 @@
         width: 460px;
         cursor: text;
         font-size: 13px;
+      }
+      .completed-task-name {
+        color: #808080;
+        width: 500px;
       }
       .schedule {
         font-size: 11px;
@@ -362,14 +407,18 @@
       }
       .task-action {
         .item {
-          &:nth-child(odd) {
-            &:hover {
-              background: #363636;
-              cursor: pointer;
-            }
+          &:hover {
+            background: #363636;
+            cursor: pointer;
           }
           &:last-child {
             border: none;
+          }
+        }
+        .priority {
+          &:hover {
+            background: none;
+            cursor: default;
           }
         }
       }
@@ -668,6 +717,7 @@
   .add-task {
     padding: 10px 0;
     cursor: pointer;
+    margin-bottom: 40px;
     &:hover {
       .add-icon {
         color: #242424;
@@ -770,6 +820,45 @@
           background: #363636;
         }
       }
+    }
+  }
+  .empty {
+    color: rgba(255, 255, 255, 0.87);
+    transition: opacity 0.5;
+    .empty-image {
+      width: 300px;
+      margin: 0 auto;
+    }
+    .empty-header {
+      font-size: 16px;
+      text-align: center;
+    }
+    .empty-body {
+      font-size: 13px;
+      text-align: center;
+      margin: 10px auto;
+    }
+    .add-button {
+      background: #de4c4a;
+      padding: 6px 12px;
+      font-size: 13px;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+  .day {
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 20px;
+    border-bottom: 1px solid #363636;
+    margin-right: 46px;
+    padding-bottom: 10px;
+    .subsection-date {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+      margin-left: 6px;
+      font-weight: normal;
     }
   }
 }

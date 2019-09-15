@@ -2,15 +2,15 @@ import * as types from '../constants/actionTypes';
 
 let initState = {
     isEdit: false,
-    index: null
+    id: null
 }
 
 const editReducer = (state = initState, action) => {
     switch (action.type) {
         case types.ONPEN_EDIT_FORM:
-            return { isEdit: true, index: action.index}
+            return { isEdit: true, id: action.id}
         case types.CANCEL_EDIT:
-            return { isEdit: false, index: null }
+            return { isEdit: false, id: null }
         default:
             return state
     }

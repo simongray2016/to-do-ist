@@ -11,6 +11,11 @@ function ProjectAction(props) {
         setOpen(false);
     }
 
+    const showCompletedList = () => {
+        props.showCompletedList();
+        setOpen(false);
+    }
+
     return (
         <Dropdown isOpen={open} toggle={() => setOpen(!open)}>
             <DropdownToggle
@@ -43,7 +48,10 @@ function ProjectAction(props) {
                         <span><i className="fa fa-sort-alpha-asc icon-label"></i></span>
                         <span className="name-label">Sort by name</span>
                     </div>
-                    <div className="item">
+                    <div 
+                        onClick={() => showCompletedList()}
+                        className="item"
+                    >
                         <span><i className="fa fa-check-circle-o icon-label"></i></span>
                         <span className="name-label">Show completed tasks</span>
                     </div>
@@ -55,6 +63,7 @@ function ProjectAction(props) {
 
 const mapDispatchToProps = dispatch => ({
     sortBy: value => dispatch(actions.sortBy(value)),
+    showCompletedList: () => dispatch(actions.showCompletedList())
 })
 
 export default connect(null, mapDispatchToProps)(ProjectAction);
