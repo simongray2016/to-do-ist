@@ -16,7 +16,7 @@ function DayList(props) {
             return "Tomorrow"
         }
         else {
-            return moment().day(index - 1).format("dddd");
+            return moment().add(index, 'd').format("dddd");
         }
     }
 

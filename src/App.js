@@ -17,7 +17,7 @@ function App(props) {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/to-do-ist">
         <TopBar />
         <LeftMenu />
         <AddModal />

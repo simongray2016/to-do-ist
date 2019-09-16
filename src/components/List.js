@@ -5,9 +5,9 @@ function List(props) {
     const scrollRef = useRef(null);
 
     useEffect(() => {
-        let offsetTop = scrollRef.current.getBoundingClientRect().top -200;
+        let offsetTop = scrollRef.current.offsetTop -200;
         props.showCompletedList && window.scrollTo({top: offsetTop, behavior: 'smooth'});
-    })
+    }, [props.showCompletedList])
 
     return (
         <div ref={scrollRef} className="section-list">
@@ -26,8 +26,8 @@ function List(props) {
                                 toggle={() => props.toggle && props.toggle()}
                                 length={props.taskList.length - 1}
                             />
-                        )) : <tr className="empty-list">
-                                {props.showCompletedList && 'No completed tasks'}
+                        )) : <tr key={"empty"} className="empty-list">
+                                {props.showCompletedList && <td>No completed tasks</td>}
                             </tr>}
                     </tbody>
                 </table>

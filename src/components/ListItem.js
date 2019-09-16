@@ -18,20 +18,13 @@ function ListItem(props) {
     const scrollRef = useRef();
 
     useEffect(() => {
-        let top = scrollRef.current.getBoundingClientRect().top;
-        let bot = scrollRef.current.getBoundingClientRect().bot;
-        console.log('bot :', bot);
+        let offsetTop = scrollRef.current.offsetTop;
         if (findId === id) {
-            let offsetTop = null;
-            if (top < 0 || bot < 0) {
-                offsetTop = scrollRef.current.offsetTop;
-            }
             console.log('offsetTop :', offsetTop);
             window.scrollTo({ top: offsetTop, behavior: "smooth", });
             setTimeout(() => clearId(), 1000)
         }
         if (added && index === length) {
-            let offsetTop = document.querySelector('.test').offsetTop - 100;
             console.log('offsetTop :', offsetTop);
             window.scrollTo({ top: offsetTop, behavior: "smooth", });
             setTimeout(() => clearAdded(), 1000)

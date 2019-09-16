@@ -19,13 +19,14 @@
 .App {
   background: #282828;
   height: 100vh;
+  overflow-x: hidden;
   .top-bar {
     display: flex;
     background-color: #282828;
     border-bottom: solid 1px #242424;
     align-items: center;
     justify-content: space-between;
-    padding: 7px 250px;
+    padding: 7px 200px;
     position: fixed;
     z-index: 1;
     width: 64%;
@@ -118,7 +119,7 @@
         i {
           color: rgba(255, 255, 255, 0.87);
           font-size: 20px;
-          display: block;
+          vertical-align: text-bottom;
         }
       }
       .add-tip {
@@ -148,6 +149,24 @@
           border-color: transparent transparent rgba(255, 255, 255, 0.87)
             transparent;
         }
+      }
+      &:last-child {
+        display: inline-flex;
+        align-items: center;
+        margin-left: 10px;
+        .add-tip {
+          left: -27px;
+          &::after {
+            top: -22%;
+          }
+        }
+        span {
+          i {
+            display: inline;
+            vertical-align: text-bottom;
+          }
+        }
+        
       }
     }
   }
@@ -289,6 +308,9 @@
         color: rgba(255, 255, 255, 0.6);
         font-size: 14px;
         animation: fade 2s ease-in-out;
+        td {
+          border: none;
+        }
       }
       .form {
         width: 547px;
@@ -860,5 +882,12 @@
       margin-left: 6px;
       font-weight: normal;
     }
+  }
+  .count-completed {
+    display: inline;
+    color: rgba(255, 255, 255, 0.87);
+    font-size: 11px;
+    margin-left: 7px;
+    font-weight: bold;
   }
 }

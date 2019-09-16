@@ -10,10 +10,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 100%;
 }
 
 ::-webkit-scrollbar {
   width: 12px;
+  z-index: 1;
 }
 
 ::-webkit-scrollbar-track {

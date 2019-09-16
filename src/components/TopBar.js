@@ -1,8 +1,9 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import QuickAdd from './QuickAdd';
 import SearchBar from './SearchBar';
+import ShowCompleted from './ShowCompleted';
 
 export default function TopBar(props) {
     return (
@@ -13,7 +14,10 @@ export default function TopBar(props) {
                 </Link>
             </div>
             <SearchBar />
-            <QuickAdd />
+            <div className="d-flex">
+                <QuickAdd />
+                <ShowCompleted />
+            </div>
         </div>
     )
 }
