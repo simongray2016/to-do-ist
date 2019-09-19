@@ -70,7 +70,7 @@ export default class Project {
         let today = task => task.date.getDate() - now === 0;
         let weekDay = task => {
             let diffDays = task.date.getDate() - now;
-            if (diffDays < 8) {
+            if (diffDays < 7) {
                 return true
             }
         }

@@ -131,7 +131,9 @@ function ListItem(props) {
                 <td>
                     <span onClick={() => onpenEditForm()} className={classNameTaskName()}>{props.name}</span>
                 </td>
-                <td>
+                <td
+                    style={props.showCompletedList && { cursor: 'text' }}
+                >
                     {!props.showCompletedList
                         ? <Dropdown isOpen={openSchedule} toggle={() => setOpenSchedule(!openSchedule)}>
                             <DropdownToggle

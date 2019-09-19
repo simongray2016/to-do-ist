@@ -57,6 +57,7 @@ function Form(props) {
                     newTask = ({ ...task, date: new Date() });
                 }
                 props.addTask(newTask);
+                !props.isQuickAdd && window.scrollBy({top: 200, behavior:"smooth"});
                 props.isQuickAdd && props.added();
                 props.closeQuickAdd();
             }
